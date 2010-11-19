@@ -1,3 +1,5 @@
+var x = null;
+
 $(document).ready(function() {
     function post(data) {
         $.post("http://ht.api.accentuate.us:8080/"
@@ -8,12 +10,23 @@ $(document).ready(function() {
             }, "json"
         );
     }
-    /*
-    post({
-          "call":   "charlifter.langs"
-        , "locale": "en-US"
-        , "lang":   "ht"
-        , "text":   "Bon, la fe sa apre demen pito, le la we mwen andey."
+    var str = "";
+    var process = function() {
+        if (str != "") {
+            $("#output").append(str + "<br/>");
+            str = "";
+        }
+    }
+    x = process;
+    var re = /[.!?]/
+    $("input").bind("keypress", function(evt) {
+        var key = String.fromCharCode(evt.which);
+        str += key;
+        if (re.test(key)) {
+            process();
+        }
+        clearTimeout(j);
+        j = setTimeout("x();", 1000);
     });
-    */
+    var j = setTimeout("x();", 1000);
 });
