@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Accentuate.us JavaScript Parser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/aus-client.js"></script>
 </head>
@@ -9,11 +10,14 @@
         <h1>Parser Debug</h1>
         <p>Please note that neither this interface nor the included aus-client.js script is intended for public use. Please see the README.mkd file for further details.</p>
 
+        <h2>Request</h2>
         <form id="debug">
-            <label for="text">Input text</label>
-            <input id="text" type="input" name="text">
+            <label for="text">Input text <em>(i.e., Bon, la fe sa apre demen pito, le la we mwen andey.)</em></label><br />
+            <input id="text" type="input" name="text" style="width: 300px;">
         </form>
 
+        <h2>Response</h2>
+        <h3><em>Example response: Bon, la fè sa aprè demen pito, lè la wè mwen andèy.</em></h3>
         <p id="output"></p>
     </div>
 </body>
