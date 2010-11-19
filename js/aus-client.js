@@ -1,23 +1,29 @@
-var x = null;
+var process = null;
 
 $(document).ready(function() {
-    function post(data) {
-        $.post("http://ht.api.accentuate.us:8080/"
-            , {js: $.toJSON(data)}
-            , function(rsp) {
-                window.alert(rsp);
+    function post(text) {
+        var data = {
+              call:     "charlifter.lift"
+            , lang:     "ht"
+            , locale:   "en-US"
+            , text:     text
+        };
+        $.ajax({
+              url:      "http://ht.api.accentuate.us:8080/"
+            , type:     "POST"
+            , data:     $.toJSON(data)
+            , success:  function(rsp) {
                 $("#output").append(rsp.text);
-            }, "json"
-        );
+            } , contentType: "application/json; charset=utf-8"
+        });
     }
     var str = "";
-    var process = function() {
+    process = function() {
         if (str != "") {
-            $("#output").append(str + "<br/>");
+            post(str);
             str = "";
         }
     }
-    x = process;
     var re = /[.!?]/
     $("input").bind("keypress", function(evt) {
         var key = String.fromCharCode(evt.which);
@@ -26,7 +32,7 @@ $(document).ready(function() {
             process();
         }
         clearTimeout(j);
-        j = setTimeout("x();", 1000);
+        j = setTimeout("process();", 500);
     });
-    var j = setTimeout("x();", 1000);
+    var j = setTimeout("process();", 500);
 });
