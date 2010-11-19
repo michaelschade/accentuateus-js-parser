@@ -22,3 +22,6 @@ Introduction
 This Accentuate.us JavaScript client parser is not intended for public use.
 This is created strictly to lay the groundwork for live accentuation in the 1.0
 version of the [Accentuate.us Firefox add-on][http://accentuate.us/get/firefox].
+
+Please note well that the use of jQuery is merely for convenience in forming
+JSON and submitting requests. The Firefox add-on does so without jQuery.
