@@ -32,9 +32,9 @@ This project has clear goals to meet before it is to be merged into the Mozilla
 Firefox add-on:
 
 * Efficiently submit text for Accentuation based on
-* * Typing inactivity (field-specific)
-* * Common Punctuation
-* * Element blur (possibly satisfied by typing inactivity)
+    * Typing inactivity (field-specific)
+    * Common Punctuation
+    * Element blur (possibly satisfied by typing inactivity)
 * Build the buffer with surrounding context words (i.e., after submitting "My
     name is" and adding " Michael Schade." the second submission should be
     "is Michael Schade."
