@@ -41,4 +41,4 @@ Firefox add-on:
 * Resolve conflicts on changing context (i.e., Irish "a" is without accent, but
     "a gcur" is with (while "a chur" does not))
 
-This project's goals are described on [my blog][http://posterous.com/sso/verify/fbecd79785904bfed22eca706afb153d?jumpto=%2F2010%2F08%2Fexpanding-client-access-to-server-resources].
+This project's goals are described on [my blog][http://mschade.me/2010/08/expanding-client-access-to-server-resources].
