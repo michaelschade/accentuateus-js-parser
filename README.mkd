@@ -25,3 +25,20 @@ version of the [Accentuate.us Firefox add-on][http://accentuate.us/get/firefox].
 
 Please note well that the use of jQuery is merely for convenience in forming
 JSON and submitting requests. The Firefox add-on does so without jQuery.
+
+Goals
+=====
+This project has clear goals to meet before it is to be merged into the Mozilla
+Firefox add-on:
+
+* Efficiently submit text for Accentuation based on
+* * Typing inactivity (field-specific)
+* * Common Punctuation
+* * Element blur (possibly satisfied by typing inactivity)
+* Build the buffer with surrounding context words (i.e., after submitting "My
+    name is" and adding " Michael Schade." the second submission should be
+    "is Michael Schade."
+* Resolve conflicts on changing context (i.e., Irish "a" is without accent, but
+    "a gcur" is with (while "a chur" does not))
+
+This project's goals are described on [my blog][http://posterous.com/sso/verify/fbecd79785904bfed22eca706afb153d?jumpto=%2F2010%2F08%2Fexpanding-client-access-to-server-resources].
