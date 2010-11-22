@@ -43,15 +43,17 @@ $(document).ready(function() {
             str = "";
         }
     }
-    var re = /[.!?]/
+    var re = /[.!?,]/
     $("input").bind("keypress", function(evt) {
-        var key = String.fromCharCode(evt.which);
-        str += key;
-        if (re.test(key)) {
-            process();
+        if (!(evt.altKey || evt.ctrlKey || evt.metaKey)) {
+            var key = String.fromCharCode(evt.which);
+            str += key;
+            if (re.test(key)) {
+                process();
+            }
+            clearTimeout(j);
+            j = setTimeout("process();", 500);
         }
-        clearTimeout(j);
-        j = setTimeout("process();", 500);
     });
     var j = setTimeout("process();", 500);
 });
