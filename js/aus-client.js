@@ -1,6 +1,23 @@
 var process = null;
 
+var ot = "";
+
+/*
+    Chunk: {
+        old:    // old text
+        lifted: // new text
+        // later add clues for intelligent updating
+    }
+*/
+function Chunk(oldText, newText) {
+    return {old: oldText, lifted: newText};
+}
+
 $(document).ready(function() {
+    /* Intelligently update input with chunk */
+    function update(destination, chunk) {
+        destination.value = destination.value.replace(chunk.old, chunk.lifted);
+    }
     function post(text) {
         var data = {
               call:     "charlifter.lift"
@@ -13,7 +30,8 @@ $(document).ready(function() {
             , type:     "POST"
             , data:     $.toJSON(data)
             , success:  function(rsp) {
-                $("#output").append(rsp.text);
+                update(document.getElementById("text"), Chunk(ot, rsp.text));
+                $("#output").append(rsp.text + "<br />");
             } , contentType: "application/json; charset=utf-8"
         });
     }
@@ -21,6 +39,7 @@ $(document).ready(function() {
     process = function() {
         if (str != "") {
             post(str);
+            ot = str;
             str = "";
         }
     }
