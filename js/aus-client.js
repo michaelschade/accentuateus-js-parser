@@ -58,7 +58,7 @@ $(document).ready(function() {
         if (!(evt.altKey || evt.ctrlKey || evt.metaKey)) {
             // Add key to buffer
             var key = String.fromCharCode(evt.which);
-            str += key;
+            buf += key;
             if (punctuation.test(key)) { // Check for end-of-buffer signal
                 process();
             }
