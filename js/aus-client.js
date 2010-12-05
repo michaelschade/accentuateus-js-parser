@@ -56,11 +56,16 @@ $(document).ready(function() {
     $("input").bind("keypress", function(evt) {
         // If not an irrelevant modifier key
         if (!(evt.altKey || evt.ctrlKey || evt.metaKey)) {
-            // Add key to buffer
-            var key = String.fromCharCode(evt.which);
-            buf += key;
-            if (punctuation.test(key)) { // Check for end-of-buffer signal
-                process();
+            if (evt.which == 8) { // Backspace--remove last buffered character
+                buf = buf.substring(0, buf.length-1);
+                clearTimeout(j);
+                j = setTimeout("process();", 500);
+            } else { // Add key to buffer
+                var key = String.fromCharCode(evt.which);
+                buf += key;
+                if (punctuation.test(key)) { // Check for end-of-buffer signal
+                    process();
+                }
             }
             clearTimeout(j);
             j = setTimeout("process();", 500);
