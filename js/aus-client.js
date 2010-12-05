@@ -4,42 +4,44 @@ var ot = "";
 
 /*
     Chunk: {
+        elem:   // source/destination element
         old:    // old text
         lifted: // new text
         // later add clues for intelligent updating
     }
 */
-function Chunk(oldText, newText) {
-    return {old: oldText, lifted: newText};
+function Chunk(elem, oldText, newText) {
+    return {elem: elem, old: oldText, lifted: newText};
 }
 
 $(document).ready(function() {
     /* Extract text from source + one context word on each side */
-    function extract(source, text) {
+    function extract(chunk) {
         /*
         Regex: \w+\s+text
         */
-        var re  = RegExp('\\w*\\s*\\w*' + text +'\\w*\\s*\\w*', 'g');
-        ot      = re.exec(source.value)[0];
-        return ot;
+        var re      = RegExp('\\w*\\s*\\w*' + chunk.old +'\\w*\\s*\\w*', 'g');
+        chunk.old   = re.exec(chunk.elem.value)[0];
+        return chunk;
     }
     /* Intelligently update input with chunk */
-    function update(destination, chunk) {
-        destination.value = destination.value.replace(chunk.old, chunk.lifted);
+    function update(chunk) {
+        chunk.elem.value = chunk.elem.value.replace(chunk.old, chunk.lifted);
     }
-    function post(text) {
+    function post(chunk) {
         var data = {
               call:     "charlifter.lift"
             , lang:     "ht"
             , locale:   "en-US"
-            , text:     text
+            , text:     chunk.old
         };
         $.ajax({
               url:      "http://ht.api.accentuate.us:8080/"
             , type:     "POST"
             , data:     $.toJSON(data)
             , success:  function(rsp) {
-                update(document.getElementById("text"), Chunk(ot, rsp.text));
+                chunk.lifted = rsp.text;
+                update(chunk);
                 $("#output").append(rsp.text + "<br />");
             } , contentType: "application/json; charset=utf-8"
         });
@@ -47,8 +49,7 @@ $(document).ready(function() {
     var str = "";
     process = function() {
         if (str != "") {
-            ot = str;
-            post(extract(document.getElementById("text"), str));
+            post(extract(Chunk(document.getElementById("text"), str, '')));
             str = "";
         }
     }
