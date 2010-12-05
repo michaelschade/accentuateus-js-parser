@@ -14,6 +14,15 @@ function Chunk(oldText, newText) {
 }
 
 $(document).ready(function() {
+    /* Extract text from source + one context word on each side */
+    function extract(source, text) {
+        /*
+        Regex: \w+\s+text
+        */
+        var re  = RegExp('\\w*\\s*\\w*' + text +'\\w*\\s*\\w*', 'g');
+        ot      = re.exec(source.value)[0];
+        return ot;
+    }
     /* Intelligently update input with chunk */
     function update(destination, chunk) {
         destination.value = destination.value.replace(chunk.old, chunk.lifted);
@@ -38,8 +47,8 @@ $(document).ready(function() {
     var str = "";
     process = function() {
         if (str != "") {
-            post(str);
             ot = str;
+            post(extract(document.getElementById("text"), str));
             str = "";
         }
     }
